@@ -1,0 +1,239 @@
+{
+  "name": "checkpoint1_miguel_tovar",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "¡Hola! 👋\nMi nombre es Miguel Tovar. ¿En qué puedo ayudarte el día de hoy con tu reporte técnico?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -416,
+        96
+      ],
+      "id": "6ae11f54-0525-40d2-acd7-78a52e5ae3e4",
+      "name": "When Chat Message is received",
+      "webhookId": "e4850f44-b355-4840-a467-fd0ad2b3da03"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -80,
+        96
+      ],
+      "id": "c5248b89-155a-4ce6-8c9e-2a59997e2009",
+      "name": "AI Agent Node"
+    },
+    {
+      "parameters": {
+        "sendTo": "migueltovar1947@gmail.com",
+        "subject": "=[AUDITORÍA IA] Ejecución del Motor de Razonamiento - Ticket Exitoso",
+        "emailType": "text",
+        "message": "=={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        256,
+        96
+      ],
+      "id": "6ae2976d-5a0b-4ee8-9451-e57911b6b134",
+      "name": "Gmail",
+      "webhookId": "b1910e11-8c03-4cfa-b8f9-4974da21d42a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "dgIHjDxnN4MSE2gx",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "responsesApiEnabled": false,
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -80,
+        448
+      ],
+      "id": "ac34fcac-6e9e-4a67-99e1-e7a4e681c2aa",
+      "name": "OpenAI Chat Model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "RfySn4hWYnIf2hPp",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Usa esta herramienta SIEMPRE para guardar un nuevo ticket de soporte cuando el usuario reporte una falla. Parámetros: nombre_usuario, correo_usuario, detalle_falla, nivel_prioridad.",
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1kapfnhT_GM8IxMNShjVD4Z_IEyM49oeyLVtxqaKP1AI",
+          "mode": "list",
+          "cachedResultName": "Tickets de Soporte - Miguel Tovar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kapfnhT_GM8IxMNShjVD4Z_IEyM49oeyLVtxqaKP1AI/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kapfnhT_GM8IxMNShjVD4Z_IEyM49oeyLVtxqaKP1AI/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "nombre_usuario": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('nombre_usuario__using_to_match_', ``, 'string') }}",
+            "correo_usuario": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('correo_usuario', ``, 'string') }}",
+            "detalle_falla": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('detalle_falla', ``, 'string') }}",
+            "nivel_prioridad": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('nivel_prioridad', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "nombre_usuario"
+          ],
+          "schema": [
+            {
+              "id": "nombre_usuario",
+              "displayName": "nombre_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "correo_usuario",
+              "displayName": "correo_usuario",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "detalle_falla",
+              "displayName": "detalle_falla",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nivel_prioridad",
+              "displayName": "nivel_prioridad",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        64,
+        448
+      ],
+      "id": "2a5dba10-4fd9-4952-99c2-46535a414e06",
+      "name": "Append or update row in sheet in Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "Ke2FXVMW0GPMau64",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Chat Message is received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent Node": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent Node",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append or update row in sheet in Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent Node",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "403af579-9807-427d-9933-68d39bec5872",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "be190a26cd83b73c86351d76e190780ca8749c1401d5a5a7d76bef0c6007ecc3"
+  },
+  "nodeGroups": [],
+  "id": "qp1CpVwyUxKUgDn0",
+  "tags": []
+}
